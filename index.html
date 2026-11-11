@@ -98,7 +98,7 @@
       </div>
     </div>
 
-    <!-- Pop-up de Chargement 5 secondes (Exactement comme la capture) -->
+    <!-- Pop-up de Chargement 5 secondes officiel Attijari -->
     <div id="loading-overlay" class="hidden fixed inset-0 z-[100] bg-black/10 backdrop-blur-[1px] flex items-center justify-center p-4">
       <div class="bg-white/90 backdrop-blur-md rounded-3xl py-7 px-10 shadow-2xl flex flex-col items-center justify-center border border-white/80 min-w-[210px]">
         <div class="w-12 h-12 rounded-full border-[3.5px] border-red-100 border-t-[#eb5545] animate-spin-custom mb-3.5"></div>
@@ -472,44 +472,73 @@
       const errBox = document.getElementById('login-error');
       const errTxt = document.getElementById('login-error-text');
 
+      const val = (pwdInput.value || '').trim();
       if (!isBiometric) {
-        if (!pwdInput.value) {
-          errTxt.textContent = 'Veuillez saisir votre mot de passe.';
+        if (!val) {
+          errTxt.textContent = 'Veuillez saisir votre mot de passe (Simo123@)';
           errBox.classList.remove('hidden');
           return;
         }
-        if (pwdInput.value !== 'Simo123@') {
+        if (val !== 'Simo123@' && val.toLowerCase() !== 'simo123@') {
           errTxt.textContent = 'Mot de passe incorrect. Le mot de passe est : Simo123@';
           errBox.classList.remove('hidden');
           return;
         }
+      } else {
+        pwdInput.value = 'Simo123@';
       }
 
       errBox.classList.add('hidden');
       
       // Afficher le pop-up de chargement pendant exactement 5 secondes
       const overlay = document.getElementById('loading-overlay');
+      overlay.style.display = 'flex';
       overlay.classList.remove('hidden');
 
       setTimeout(() => {
+        // Cacher le chargement
+        overlay.style.display = 'none';
         overlay.classList.add('hidden');
-        document.getElementById('view-login').classList.remove('active');
-        document.getElementById('app-main').classList.remove('hidden');
+
+        // Cacher complètement l'écran de connexion
+        const viewLogin = document.getElementById('view-login');
+        viewLogin.style.display = 'none';
+        viewLogin.classList.remove('active');
+        viewLogin.classList.add('hidden');
+
+        // Afficher l'application principale
+        const appMain = document.getElementById('app-main');
+        appMain.style.display = 'block';
+        appMain.classList.remove('hidden');
+
         switchTab('accueil');
       }, 5000);
     }
 
     function doLogout() {
-      document.getElementById('app-main').classList.add('hidden');
-      document.getElementById('view-login').classList.add('active');
+      const appMain = document.getElementById('app-main');
+      appMain.style.display = 'none';
+      appMain.classList.add('hidden');
+
+      const viewLogin = document.getElementById('view-login');
+      viewLogin.style.display = 'flex';
+      viewLogin.classList.remove('hidden');
+      viewLogin.classList.add('active');
+
       const pwdInput = document.getElementById('login-pwd');
       if (pwdInput) pwdInput.value = '';
     }
 
     function switchTab(tabId) {
-      document.querySelectorAll('#app-main .page-tab').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('#app-main .page-tab').forEach(el => {
+        el.classList.remove('active');
+        el.style.display = 'none';
+      });
       const target = document.getElementById('tab-' + tabId);
-      if (target) target.classList.add('active');
+      if (target) {
+        target.classList.add('active');
+        target.style.display = 'block';
+      }
       window.scrollTo(0, 0);
 
       const navAccueil = document.getElementById('nav-btn-accueil');
@@ -652,4 +681,4 @@
     }
   </script>
 </body>
-          </html>
+</html>
