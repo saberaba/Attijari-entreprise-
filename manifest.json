@@ -1,21 +1,22 @@
 {
-  "name": "Attijari pro - Espace Auto-Entrepreneur",
+  "name": "Attijari pro",
   "short_name": "Attijari pro",
   "description": "Application bancaire mobile Attijariwafa bank pour professionnels et auto-entrepreneurs",
-  "start_url": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#eb5545",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "attijari-192.png",
+      "src": "icon2026.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "attijari-512.png",
+      "src": "icon2026.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
